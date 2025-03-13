@@ -1,0 +1,7 @@
+<div class="sidebar">
+    <div *ngFor="let tab of tabs" (click)="activeTab = tab.name" [ngClass]="{'active': activeTab === tab.name}">
+      <mat-icon>{{ tab.icon }}</mat-icon>
+      <span>{{ tab.name }}</span>
+    </div>
+  </div>
+  

@@ -1,0 +1,19 @@
+.app-layout {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .main-content {
+    display: flex;
+    padding: 20px;
+  }
+  
+  .page-content {
+    margin-left: 20px;
+    flex-grow: 1;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    transition: all 0.3s ease-in-out;
+  }
+  
