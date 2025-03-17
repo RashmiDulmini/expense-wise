@@ -1,19 +1,31 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .app-layout {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .main-content {
-    display: flex;
-    padding: 20px;
-  }
-  
-  .page-content {
-    margin-left: 20px;
-    flex-grow: 1;
-    border-radius: 12px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    transition: all 0.3s ease-in-out;
-  }
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main-content {
+  display: flex;
+  flex-grow: 1;
+  padding: 20px;
+  height: 100%;
+}
+
+.page-content {
+  margin-left: 20px;
+  flex-grow: 1;
+  border-radius: 12px;
+  background-color: #0f0f0f;
+  padding: 20px;
+  transition: all 0.3s ease-in-out;
+  height: 95%;
+  overflow-y: auto;
+}
+
   

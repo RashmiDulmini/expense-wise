@@ -1,5 +1,10 @@
 <div class="app-layout">
-  <app-header></app-header>
+  <app-header>
+    <div class="header-left">
+      <img src="profile-picture.jpg" alt="Profile Picture" class="profile-pic"/>
+      <span class="profile-name">John Doe</span>
+    </div>
+  </app-header>
   <div class="main-content">
     <app-sidebar [(activeTab)]="activeTab"></app-sidebar>
     <div class="page-content">
