@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common'; // ✅ Import CommonModule
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./components/header/header.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
@@ -10,14 +11,23 @@ import { SavingsComponent } from "./components/pages/savingspage/savings/savings
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, SidebarComponent, SummaryComponent, TransactionsComponent, InsightsComponent, SavingsComponent],
+  imports: [CommonModule, RouterOutlet, HeaderComponent, SidebarComponent, SummaryComponent, TransactionsComponent, InsightsComponent, SavingsComponent], // ✅ Add CommonModule
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 
-export class AppComponent {
+export class AppComponent { 
+  title: string = 'expensewise-frontend'; // ✅ Add this property
+  activeTab: string = 'Summary';
+
+  setActiveTab(tab: string) {
+    this.activeTab = tab;
+  }
+}
+
+
+/*export class AppComponent { 
   title(title: any) {
     throw new Error('Method not implemented.');
   }
-  activeTab = 'Summary';
-}
+}*/
