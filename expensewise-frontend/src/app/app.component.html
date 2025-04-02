@@ -6,6 +6,7 @@
     </div>
   </app-header>
   <div class="main-content">
+    <router-outlet></router-outlet>
     <app-sidebar [(activeTab)]="activeTab"></app-sidebar>
     <div class="page-content">
       <app-summary *ngIf="activeTab === 'Summary'"></app-summary>
