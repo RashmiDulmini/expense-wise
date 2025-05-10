@@ -17,7 +17,7 @@ import { SavingsComponent } from "./components/pages/savingspage/savings/savings
 })
 
 export class AppComponent { 
-  title: string = 'expensewise-frontend'; // ✅ Add this property
+  title: string = 'expensewise-frontend'; // Add this property
   activeTab: string = 'Summary';
 
   setActiveTab(tab: string) {

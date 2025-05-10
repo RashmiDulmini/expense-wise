@@ -1,33 +1,39 @@
 <div class="summary-container">
-    <div class="tiles">
-      <div class="tile balance">
-        <div class="amount">$12,000</div>
-        <div class="label">Total Balance</div>
+  <h1 class="summary-title">Expenses Overview</h1>
+    <div class="summary-content">
+      <div class="tiles">
+        <div class="tile balance">
+          <div class="amount">$12,000</div>
+          <div class="label">Total Balance</div>
+        </div>
+        <div class="tile income">
+          <div class="amount">$7,500</div>
+          <div class="label">Total Income</div>
+        </div>
+        <div class="tile expenses">
+          <div class="amount">$5,000</div>
+          <div class="label">Total Expenses</div>
+        </div>
       </div>
-      <div class="tile income">
-        <div class="amount">$7,500</div>
-        <div class="label">Total Income</div>
-      </div>
-      <div class="tile expenses">
-        <div class="amount">$5,000</div>
-        <div class="label">Total Expenses</div>
-      </div>
-    </div>
-  
-    <div class="monthly-table">
-      <div class="table-header">
-        <div class="cell">Month</div>
-        <div class="cell">Income</div>
-        <div class="cell">Expenses</div>
-      </div>
-      <div
-        class="table-row"
-        *ngFor="let month of monthlyData"
-        (click)="onMonthClick(month)"
-      >
-        <div class="cell">{{ month.name }}</div>
-        <div class="cell">${{ month.income }}</div>
-        <div class="cell">${{ month.expense }}</div>
+
+      <h1 class="summary-subtitle">Monthly categorized overview</h1>
+      <p>View monthly expenses</p>
+
+      <div class="monthly-table">
+        <div class="table-header">
+          <div class="cell">Month</div>
+          <div class="cell">Income</div>
+          <div class="cell">Expenses</div>
+        </div>
+        <div
+          class="table-row"
+          *ngFor="let month of monthlyData"
+          (click)="onMonthClick(month)"
+        >
+          <div class="cell">{{ month.name }}</div>
+          <div class="cell">${{ month.income }}</div>
+          <div class="cell">${{ month.expense }}</div>
+        </div>
       </div>
     </div>
   </div>
