@@ -1,5 +1,5 @@
 <div class="sidebar">
-    <div *ngFor="let tab of tabs" (click)="activeTab = tab.name" [ngClass]="{'active': activeTab === tab.name}">
+    <div *ngFor="let tab of tabs" (click)="changeTab(tab.name)" [ngClass]="{'active': activeTab === tab.name}">
       <span>{{ tab.name }}</span>
     </div>
   </div>

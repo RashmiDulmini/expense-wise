@@ -8,21 +8,20 @@ html, body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: #4d4d4d;
 }
 
 .main-content {
   display: flex;
   flex-grow: 1;
-  padding: 20px;
   height: 100%;
 }
 
 .page-content {
-  margin-left: 20px;
   flex-grow: 1;
   border-radius: 12px;
   background-color: #0f0f0f;
-  padding: 20px;
+  margin: 20px 20px 20px 20px;
   transition: all 0.3s ease-in-out;
   height: 95%;
   overflow-y: auto;

@@ -1,12 +1,20 @@
 .header {
   display: flex;
   align-items: center;
-  padding: 20px;
-  padding-left: 70px;
-  background-color: #333; /* Dark background */
+  justify-content: space-between;
+  padding: 18px;
+  background-color: #1f1f1f;
+}
+
+.profile-info {
+  padding-left: 30px;
+  padding-top: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .profile-img {
+  background-color: white;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -17,4 +25,21 @@
   font-size: 18px;
   font-weight: 500;
   color: #fff;
+}
+
+.notifications {
+  display: flex;
+  padding-right: 35px;
+  padding-top: 5px;
+  color: #fff;
+}
+
+.notification-text {
+  font-weight: 500;
+  margin-left: 10px;
+  font-size: 17px;
+}
+
+.notification-icon {
+  font-size: 20px;
 }
