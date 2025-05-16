@@ -1,7 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace ExpenseTrackerApi.Models;
+namespace ExpenseWiseApi.Models;
 
 public class User
 {
