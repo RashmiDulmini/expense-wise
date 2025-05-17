@@ -1,0 +1,8 @@
+C:\Users\Rashmi Mendis\Desktop\expense-wise\ExpenseWiseApi\obj\Debug\net9.0\ExpenseWiseApi.csproj.AssemblyReference.cache
+C:\Users\Rashmi Mendis\Desktop\expense-wise\ExpenseWiseApi\obj\Debug\net9.0\ExpenseWiseApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rashmi Mendis\Desktop\expense-wise\ExpenseWiseApi\obj\Debug\net9.0\ExpenseWiseApi.AssemblyInfoInputs.cache
+C:\Users\Rashmi Mendis\Desktop\expense-wise\ExpenseWiseApi\obj\Debug\net9.0\ExpenseWiseApi.AssemblyInfo.cs
+C:\Users\Rashmi Mendis\Desktop\expense-wise\ExpenseWiseApi\obj\Debug\net9.0\ExpenseWiseApi.csproj.CoreCompileInputs.cache
+C:\Users\Rashmi Mendis\Desktop\expense-wise\ExpenseWiseApi\obj\Debug\net9.0\ExpenseWiseApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Rashmi Mendis\Desktop\expense-wise\ExpenseWiseApi\obj\Debug\net9.0\ExpenseWiseApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Rashmi Mendis\Desktop\expense-wise\ExpenseWiseApi\obj\Debug\net9.0\ExpenseWiseApi.sourcelink.json
