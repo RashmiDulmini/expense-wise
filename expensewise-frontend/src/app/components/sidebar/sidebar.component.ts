@@ -19,10 +19,12 @@ export class SidebarComponent {
   @Output() activeTabChange: EventEmitter<string> = new EventEmitter<string>();  // emit changes to the parent component
 
   tabs = [
+    { name: 'FinancialInput', icon: 'home' },
     { name: 'Summary', icon: 'home' },
     { name: 'Transactions', icon: 'account_balance_wallet' },
     { name: 'Insights', icon: 'bar_chart' },
     { name: 'Savings', icon: 'savings' }
+   
   ];
 
   // method - change the active tab

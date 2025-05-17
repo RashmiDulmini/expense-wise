@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // ✅ Import CommonModule
+import { CommonModule } from '@angular/common'; 
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./components/header/header.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
@@ -7,18 +7,19 @@ import { SummaryComponent } from "./components/pages/summarypage/summary/summary
 import { TransactionsComponent } from "./components/pages/transactionspage/transactions/transactions.component";
 import { InsightsComponent } from "./components/pages/insightspage/insights/insights.component";
 import { SavingsComponent } from "./components/pages/savingspage/savings/savings.component";
+import { FinancialInputComponent } from './components/pages/financialinputpage/financial-input/financial-input.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HeaderComponent, SidebarComponent, SummaryComponent, TransactionsComponent, InsightsComponent, SavingsComponent], // ✅ Add CommonModule
+  imports: [CommonModule, RouterOutlet, HeaderComponent, SidebarComponent, SummaryComponent, TransactionsComponent, InsightsComponent, SavingsComponent, FinancialInputComponent], // ✅ Add CommonModule
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 
 export class AppComponent { 
   title: string = 'expensewise-frontend'; // Add this property
-  activeTab: string = 'Summary';
+  activeTab: string = 'FinancialInput';
 
   setActiveTab(tab: string) {
     this.activeTab = tab;

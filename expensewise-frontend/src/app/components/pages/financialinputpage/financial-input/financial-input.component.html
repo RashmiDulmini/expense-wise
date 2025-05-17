@@ -1,0 +1,21 @@
+<div class="financial-input-container">
+  <h2 class="page-title">Enter Your Monthly Financial Data</h2>
+  <div class="input-card">
+    <div class="summary-box">
+      <label for="income">Total Income ($)</label>
+      <input type="number" id="income" [(ngModel)]="income" placeholder="Enter your income" />
+    </div>
+
+    <div class="summary-box">
+      <label for="expenses">Total Expenses ($)</label>
+      <input type="number" id="expenses" [(ngModel)]="expenses" placeholder="Enter your expenses" />
+    </div>
+
+    <div class="summary-box">
+      <label for="balance">Total Balance ($)</label>
+      <input type="number" id="balance" [(ngModel)]="balance" placeholder="Enter your balance" />
+    </div>
+
+    <button class="submit-button" (click)="submit()">Submit</button>
+  </div>
+</div>
