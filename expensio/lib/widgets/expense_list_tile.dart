@@ -14,6 +14,8 @@ class ExpenseListTile extends StatelessWidget {
   const ExpenseListTile({super.key, required this.expense, required this.index});
 
   void _showOptions(BuildContext context) {
+    // Capture root navigator context before bottom sheet opens
+    final rootContext = context;
     showModalBottomSheet(
       context: context,
       backgroundColor: AppTheme.surface,
@@ -21,7 +23,7 @@ class ExpenseListTile extends StatelessWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
-      builder: (ctx) => _ExpenseOptions(expense: expense),
+      builder: (ctx) => _ExpenseOptions(expense: expense, rootContext: rootContext),
     );
   }
 
@@ -149,8 +151,9 @@ class ExpenseListTile extends StatelessWidget {
 
 class _ExpenseOptions extends StatelessWidget {
   final Expense expense;
+  final BuildContext rootContext;
 
-  const _ExpenseOptions({required this.expense});
+  const _ExpenseOptions({required this.expense, required this.rootContext});
 
   @override
   Widget build(BuildContext context) {
@@ -284,7 +287,8 @@ class _ExpenseOptions extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pop(context);
-              _confirmDelete(context);
+              // Use rootContext so dialog has a valid mounted context
+              Future.microtask(() => _confirmDelete(rootContext));
             },
           ),
           ],
@@ -298,62 +302,226 @@ class _ExpenseOptions extends StatelessWidget {
   void _confirmDelete(BuildContext context) {
     showDialog(
       context: context,
-      builder:
-          (ctx) => AlertDialog(
-            backgroundColor: AppTheme.card,
+      builder: (ctx) => _DeleteConfirmDialog(expense: expense),
+    );
+  }
+}
+
+// ─── Delete Confirm Dialog ─────────────────────────────────────────────────────
+
+class _DeleteConfirmDialog extends StatefulWidget {
+  final Expense expense;
+  const _DeleteConfirmDialog({required this.expense});
+
+  @override
+  State<_DeleteConfirmDialog> createState() => _DeleteConfirmDialogState();
+}
+
+class _DeleteConfirmDialogState extends State<_DeleteConfirmDialog> {
+  bool _isDeleting = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: AppTheme.card,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+        side: const BorderSide(color: AppTheme.border),
+      ),
+      title: Text(
+        'Delete Expense',
+        style: GoogleFonts.inter(
+          color: AppTheme.textPrimary,
+          fontWeight: FontWeight.w700,
+          fontSize: 18,
+        ),
+      ),
+      content: Text(
+        'Are you sure you want to delete "${widget.expense.title}"? This cannot be undone.',
+        style: GoogleFonts.inter(
+          color: AppTheme.textSecondary,
+          fontSize: 14,
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: _isDeleting ? null : () => Navigator.pop(context),
+          child: Text(
+            'Cancel',
+            style: GoogleFonts.inter(color: AppTheme.textSecondary),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: _isDeleting ? null : _handleDelete,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppTheme.error,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-              side: const BorderSide(color: AppTheme.border),
+              borderRadius: BorderRadius.circular(10),
             ),
-            title: Text(
-              'Delete Expense',
-              style: GoogleFonts.inter(
-                color: AppTheme.textPrimary,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            content: Text(
-              'Are you sure you want to delete "${expense.title}"? This cannot be undone.',
-              style: GoogleFonts.inter(color: AppTheme.textSecondary),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(ctx),
-                child: Text(
-                  'Cancel',
-                  style: GoogleFonts.inter(color: AppTheme.textSecondary),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  Navigator.pop(ctx);
-                  final provider = context.read<ExpenseProvider>();
-                  await provider.deleteExpense(expense.id);
-                  if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'Expense deleted',
-                          style: GoogleFonts.inter(color: AppTheme.textPrimary),
-                        ),
-                        backgroundColor: AppTheme.card,
-                      ),
-                    );
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppTheme.error,
-                ),
-                child: Text(
+          ),
+          child: _isDeleting
+              ? const SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Colors.white,
+                  ),
+                )
+              : Text(
                   'Delete',
                   style: GoogleFonts.inter(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _handleDelete() async {
+    setState(() => _isDeleting = true);
+
+    final provider = context.read<ExpenseProvider>();
+    final success = await provider.deleteExpense(widget.expense.id);
+
+    if (!mounted) return;
+
+    // Close the confirm dialog
+    Navigator.of(context).pop();
+
+    if (success) {
+      // Show centered success popup overlay
+      _showDeleteSuccessOverlay(context);
+    }
+  }
+}
+
+void _showDeleteSuccessOverlay(BuildContext context) {
+  final overlay = Overlay.of(context);
+  late OverlayEntry entry;
+
+  entry = OverlayEntry(
+    builder: (_) => _DeleteSuccessPopup(
+      onDismiss: () => entry.remove(),
+    ),
+  );
+
+  overlay.insert(entry);
+
+  // Auto dismiss after 1.8 seconds
+  Future.delayed(const Duration(milliseconds: 1800), () {
+    if (entry.mounted) entry.remove();
+  });
+}
+
+// ─── Centered success popup ────────────────────────────────────────────────────
+
+class _DeleteSuccessPopup extends StatefulWidget {
+  final VoidCallback onDismiss;
+  const _DeleteSuccessPopup({required this.onDismiss});
+
+  @override
+  State<_DeleteSuccessPopup> createState() => _DeleteSuccessPopupState();
+}
+
+class _DeleteSuccessPopupState extends State<_DeleteSuccessPopup>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late final Animation<double> _scaleAnim;
+  late final Animation<double> _fadeAnim;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _scaleAnim = CurvedAnimation(parent: _ctrl, curve: Curves.easeOutBack);
+    _fadeAnim = CurvedAnimation(parent: _ctrl, curve: Curves.easeIn);
+    _ctrl.forward();
+
+    // Start fade-out before removal
+    Future.delayed(const Duration(milliseconds: 1300), () {
+      if (mounted) _ctrl.reverse();
+    });
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned.fill(
+      child: Material(
+        color: Colors.transparent,
+        child: FadeTransition(
+          opacity: _fadeAnim,
+          child: Center(
+            child: ScaleTransition(
+              scale: _scaleAnim,
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 28,
+                ),
+                decoration: BoxDecoration(
+                  color: AppTheme.card,
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: AppTheme.border),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.4),
+                      blurRadius: 30,
+                      spreadRadius: 4,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 64,
+                      height: 64,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF22C55E).withValues(alpha: 0.15),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.check_circle_rounded,
+                        color: Color(0xFF22C55E),
+                        size: 36,
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    Text(
+                      'Expense Deleted',
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Successfully removed',
+                      style: GoogleFonts.inter(
+                        fontSize: 13,
+                        color: AppTheme.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ],
+            ),
           ),
+        ),
+      ),
     );
   }
 }
