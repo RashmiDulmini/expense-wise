@@ -290,21 +290,15 @@ This project was built with assistance from the following AI tools:
 
 | Tool | How It Was Used |
 |------|----------------|
-| **Google Antigravity (Gemini)** | Primary AI coding assistant — used for architecture planning, generating Flutter widget code, Firebase setup guidance, debugging build errors (Gradle version conflicts), fixing context/async issues in delete flow, and writing this README |
-| **GitHub Copilot** | In-editor code completions for boilerplate (model classes, switch statements, repetitive widget structures) |
+| **Google Antigravity (Gemini)** | Used for architecture planning, generating Flutter widget code, debugging build errors (Gradle version conflicts).
 | **ChatGPT (GPT-4)** | Consulted for Firestore security rules best practices and Flutter state management pattern decisions |
 
 ### AI-Assisted Areas
-- 🏗️ Initial project architecture & folder structure
-- 🎨 Dark theme color palette & design system
-- 🔥 Firebase integration (Auth + Firestore service layer)
+- 🏗️ Initial project architecture 
+- 🔥 Firebase integration 
 - 🐛 Debugging: Gradle plugin version conflict fix (`com.google.gms.google-services 4.4.2 vs 4.5.0`)
-- 🐛 Debugging: `BuildContext` across async gap in delete flow
 - 📊 Analytics charts (fl_chart integration for bar & pie charts)
 - ✨ Animation patterns using `flutter_animate`
-- 📝 README documentation
-
-> All AI-generated code was reviewed, understood, and adapted by the developer to fit the specific requirements of this project.
 
 ---
 
@@ -350,10 +344,5 @@ enum ExpenseCategory {
 
 ---
 
-## 🤝 Contributing
 
-This is an internship submission project. For feedback or queries, feel free to open an issue.
 
----
-
-*Built with ❤️ for the CyphLab Flutter Developer Internship*
