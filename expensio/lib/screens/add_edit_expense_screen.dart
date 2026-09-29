@@ -337,10 +337,10 @@ class _AmountField extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                '\$',
+                AppTheme.currencySymbol,
                 style: GoogleFonts.inter(
-                  fontSize: 36,
-                  fontWeight: FontWeight.w300,
+                  fontSize: 26,
+                  fontWeight: FontWeight.w400,
                   color: Colors.white.withValues(alpha: 0.8),
                 ),
               ),

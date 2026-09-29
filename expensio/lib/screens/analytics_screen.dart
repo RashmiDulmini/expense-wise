@@ -179,7 +179,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    '\$${amount.toStringAsFixed(2)}',
+                    AppTheme.formatCurrency(amount),
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w700,
                       color: AppTheme.textPrimary,
@@ -307,7 +307,7 @@ class _WeeklyChart extends StatelessWidget {
               getTooltipColor: (_) => AppTheme.surface,
               getTooltipItem: (group, groupIndex, rod, rodIndex) {
                 return BarTooltipItem(
-                  '\$${rod.toY.toStringAsFixed(2)}',
+                  AppTheme.formatCurrency(rod.toY),
                   GoogleFonts.inter(
                     color: AppTheme.textPrimary,
                     fontWeight: FontWeight.w600,

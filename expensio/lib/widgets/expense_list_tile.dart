@@ -29,8 +29,7 @@ class ExpenseListTile extends StatelessWidget {
     final color =
         AppTheme.categoryColors[expense.category.name] ?? AppTheme.textSecondary;
     final formattedDate = DateFormat('MMM d').format(expense.date);
-    final formattedAmount =
-        NumberFormat.currency(symbol: '\$').format(expense.amount);
+    final formattedAmount = AppTheme.formatCurrency(expense.amount);
 
     return GestureDetector(
       onTap: () => _showOptions(context),
@@ -200,7 +199,7 @@ class _ExpenseOptions extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '\$${expense.amount.toStringAsFixed(2)} · ${expense.category.label}',
+                      '${AppTheme.formatCurrency(expense.amount)} · ${expense.category.label}',
                       style: GoogleFonts.inter(
                         fontSize: 13,
                         color: AppTheme.textSecondary,

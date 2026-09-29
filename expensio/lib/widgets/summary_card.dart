@@ -20,7 +20,7 @@ class SummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = NumberFormat.currency(symbol: '\$');
+    final formatter = NumberFormat.currency(symbol: AppTheme.currencySymbol);
 
     return Container(
       width: double.infinity,

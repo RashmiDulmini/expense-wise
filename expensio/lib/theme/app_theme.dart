@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class AppTheme {
+  // ─── Currency ───────────────────────────────────────────────────────────────
+  static const String currencySymbol = 'Rs. ';
+
+  static String formatCurrency(double amount) {
+    return NumberFormat.currency(
+      symbol: currencySymbol,
+      decimalDigits: 2,
+    ).format(amount);
+  }
+
   // ─── Color Palette ───────────────────────────────────────────────────────────
   static const Color background = Color(0xFF0D1117);
   static const Color surface = Color(0xFF161B22);
