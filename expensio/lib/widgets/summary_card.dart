@@ -74,36 +74,45 @@ class SummaryCard extends StatelessWidget {
 
           const SizedBox(height: 8),
 
-          Text(
-            formatter.format(isFiltered ? filteredAmount : totalAmount),
-            style: GoogleFonts.inter(
-              fontSize: 38,
-              fontWeight: FontWeight.w800,
-              color: Colors.white,
-              letterSpacing: -1,
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              formatter.format(isFiltered ? filteredAmount : totalAmount),
+              style: GoogleFonts.inter(
+                fontSize: 38,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+                letterSpacing: -1,
+              ),
             ),
           ).animate().fadeIn(duration: 400.ms),
 
           if (isFiltered) ...[
             const SizedBox(height: 6),
-            Text(
-              'Month total: ${formatter.format(totalAmount)}',
-              style: GoogleFonts.inter(
-                fontSize: 12,
-                color: Colors.white.withValues(alpha: 0.65),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Month total: ${formatter.format(totalAmount)}',
+                style: GoogleFonts.inter(
+                  fontSize: 12,
+                  color: Colors.white.withValues(alpha: 0.65),
+                ),
               ),
             ),
           ],
 
           const SizedBox(height: 16),
 
-          Row(
-            children: [
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: const [
               _StatChip(
                 icon: Icons.trending_up_rounded,
                 label: 'This Month',
               ),
-              const SizedBox(width: 8),
               _StatChip(
                 icon: Icons.account_balance_wallet_outlined,
                 label: 'Tracking Active',

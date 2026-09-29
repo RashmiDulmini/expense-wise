@@ -45,6 +45,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
 
           if (categoryTotals.isEmpty)
             SliverFillRemaining(
+              hasScrollBody: false,
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -160,6 +161,8 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                         color: AppTheme.textPrimary,
                         fontSize: 14,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
                     ClipRRect(
@@ -178,12 +181,15 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    AppTheme.formatCurrency(amount),
-                    style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w700,
-                      color: AppTheme.textPrimary,
-                      fontSize: 14,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      AppTheme.formatCurrency(amount),
+                      style: GoogleFonts.inter(
+                        fontWeight: FontWeight.w700,
+                        color: AppTheme.textPrimary,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
                   Text(
@@ -358,7 +364,7 @@ class _CategoryDonut extends StatelessWidget {
             child: PieChart(
               PieChartData(
                 sectionsSpace: 2,
-                centerSpaceRadius: 50,
+                centerSpaceRadius: 36,
                 pieTouchData: PieTouchData(
                   touchCallback: (event, response) {
                     if (response != null && response.touchedSection != null) {
@@ -386,7 +392,7 @@ class _CategoryDonut extends StatelessWidget {
                             isTouched
                                 ? '${(amount / totalAmount * 100).toStringAsFixed(1)}%'
                                 : '',
-                        radius: isTouched ? 60 : 50,
+                        radius: isTouched ? 46 : 38,
                         titleStyle: GoogleFonts.inter(
                           fontSize: 11,
                           fontWeight: FontWeight.w700,

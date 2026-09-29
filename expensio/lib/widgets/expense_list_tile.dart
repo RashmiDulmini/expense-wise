@@ -17,6 +17,7 @@ class ExpenseListTile extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       backgroundColor: AppTheme.surface,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -110,16 +111,21 @@ class ExpenseListTile extends StatelessWidget {
               ),
             ),
 
+            const SizedBox(width: 10),
+
             // Amount & Date
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
-                  formattedAmount,
-                  style: GoogleFonts.inter(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: AppTheme.textPrimary,
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    formattedAmount,
+                    style: GoogleFonts.inter(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: AppTheme.textPrimary,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 3),
@@ -151,12 +157,17 @@ class _ExpenseOptions extends StatelessWidget {
     final color =
         AppTheme.categoryColors[expense.category.name] ?? AppTheme.textSecondary;
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Center(
+    return SafeArea(
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Center(
             child: Container(
               width: 40,
               height: 4,
@@ -276,10 +287,13 @@ class _ExpenseOptions extends StatelessWidget {
               _confirmDelete(context);
             },
           ),
-        ],
+          ],
+        ),
       ),
-    );
-  }
+    ),
+  ),
+);
+}
 
   void _confirmDelete(BuildContext context) {
     showDialog(
