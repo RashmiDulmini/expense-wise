@@ -334,15 +334,4 @@ enum ExpenseCategory {
 
 ---
 
-## 📸 Screenshots
-
-> *(Add your app screenshots here)*
-
-| Auth Screen | Home Screen | Analytics |
-|-------------|-------------|-----------|
-| ![auth]() | ![home]() | ![analytics]() |
-
----
-
-
 
